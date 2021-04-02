@@ -8,7 +8,7 @@ import javax.persistence.*
 data class Strain(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val id: Long? = null,
         val name: String,
         val dateReceiving: Date,
         val collectionIndex: String,

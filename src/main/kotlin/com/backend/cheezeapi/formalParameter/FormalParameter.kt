@@ -10,9 +10,9 @@ data class FormalParameter(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
         @ManyToOne(fetch = FetchType.LAZY)
-        val property: Property,
-        val value: String,
+        val property: Property? = null,
+        val value: String? = null,
         @ManyToOne(fetch = FetchType.LAZY)
-        val parameterDataType: ParameterDataType,
-        val groupId: Long
+        val parameterDataType: ParameterDataType? = null,
+        val groupId: Long? = null
 )

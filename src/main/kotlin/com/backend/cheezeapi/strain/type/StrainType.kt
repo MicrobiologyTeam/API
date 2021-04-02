@@ -9,6 +9,6 @@ import javax.persistence.Id
 data class StrainType (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val id: Long? = null,
         val name: String
 )
