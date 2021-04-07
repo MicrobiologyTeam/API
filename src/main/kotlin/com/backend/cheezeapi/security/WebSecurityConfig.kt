@@ -23,7 +23,7 @@ class WebSecurityConfig(
         http.csrf().disable()
             .authorizeRequests()
             .antMatchers("/change_actions").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
             .and().httpBasic()
     }
 
