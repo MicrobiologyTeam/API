@@ -14,4 +14,7 @@ class StrainController(
     @DeleteMapping("delete")
     fun deleteById(@RequestParam strainId: Long) =
             strainService.deleteById(strainId)
+
+    @GetMapping("")
+    fun findAll() = strainService.findAll()
 }

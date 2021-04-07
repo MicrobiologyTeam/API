@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: cheeze
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 7070:8080
+
+  app:
+    image: app
+    ports:
+      - 8081:8081
+    links: 
+      - db
+
+  admiral:
+    image: vmware/admiral
+    ports:
+      - 8282:8282

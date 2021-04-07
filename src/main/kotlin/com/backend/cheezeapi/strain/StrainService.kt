@@ -35,4 +35,7 @@ class StrainService(
         factParameterService.deleteByStrainId(strainId)
         strainRepository.deleteById(strainId)
     }
+
+    fun findAll(): List<StrainDto> =
+            strainRepository.findAll().map { StrainDto.toDto(it) }
 }

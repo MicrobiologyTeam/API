@@ -16,4 +16,9 @@ class StrainTypeService(
                     )
             )
 
+    fun findAll(): List<StrainTypeDto> =
+            strainTypeRepository.findAll().map {
+                StrainTypeDto.toDto(it)
+            }
+
 }
