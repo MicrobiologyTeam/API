@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: cheeze
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 7070:8080
+
+  app:
+    image: openjdk
+    volumes:
+      - ./build/libs:/usr/src/app
+      - ./src/release:/usr/src/app/config
+    working_dir: /usr/src/app
+    ports:
+      - 8081:8081
+    links: 
+      - db
+    command: ["java", "-jar", "/usr/src/app/cheeze-api-0.0.1-SNAPSHOT.jar", "--spring.config.location=config/application.release.properties"]
