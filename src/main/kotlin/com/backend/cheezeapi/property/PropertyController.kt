@@ -21,4 +21,3 @@ class PropertyController(
     fun findAll(): List<PropertyDto> =
         propertyService.findAll()
 }
-
