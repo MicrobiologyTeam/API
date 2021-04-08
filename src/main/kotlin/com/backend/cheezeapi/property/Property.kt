@@ -11,6 +11,6 @@ data class Property(
     @Column(unique = true)
     val code: String? = null,
 
-    @Column(unique = true)
-    val name: String
+    @Column(unique = true, nullable = false)
+    val name: String? = null
 )

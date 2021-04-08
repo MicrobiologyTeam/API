@@ -19,7 +19,7 @@ class FactParameterService(
                             ),
                             value = it.value ?: error("Не задано factParameter.value"),
                             reserve = it.reserve ?: error("Не задан factParameter.reserve"),
-                            groupId = it.groupId ?: error("Не задан factParameter.groupId")
+                            groupId = it.groupId ?: error("Не задан factParameter.groupId"),
                     )
                 }
         ).map {

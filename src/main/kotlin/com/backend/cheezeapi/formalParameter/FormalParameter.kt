@@ -8,12 +8,21 @@ import javax.persistence.*
 data class FormalParameter(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
+
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     val property: Property? = null,
+
+    @Column(nullable = false)
     val value: String? = null,
+
+    val groupId: Long? = null,
+
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     val parameterDataType: ParameterDataType? = null,
-    val groupId: Long? = null,
-    val isNote: Boolean
+
+    @Column(nullable = false)
+    val isNote: Boolean? = null
 )

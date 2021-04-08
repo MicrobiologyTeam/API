@@ -1,8 +1,8 @@
 package com.backend.cheezeapi.parameterDataType
 
 data class ParameterDataTypeDto(
-    var id: Long? = null,
-    var name: String? = null
+    val id: Long? = null,
+    val name: String? = null
 ) {
     companion object {
         fun toDto(parameterDataType: ParameterDataType): ParameterDataTypeDto =
