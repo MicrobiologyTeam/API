@@ -1,15 +1,16 @@
 package com.backend.cheezeapi.property
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
-data class Property (
+data class Property(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
-    val code: String,
+    val id: Long? = null,
+
+    @Column(unique = true)
+    val code: String? = null,
+
+    @Column(unique = true)
     val name: String
 )

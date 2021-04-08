@@ -24,7 +24,7 @@ class WebSecurityConfig(
             .authorizeRequests()
             .antMatchers("/change_actions").permitAll()
             .anyRequest().permitAll()
-            .and().httpBasic()
+//            .and().httpBasic()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
