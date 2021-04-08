@@ -4,8 +4,8 @@ services:
     restart: always
     environment:
       POSTGRES_DB: microbiology
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: cheese
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: cheese
     ports:
       - 5432:5432
 
