@@ -5,29 +5,29 @@ import com.backend.cheezeapi.strain.type.StrainTypeDto
 import java.util.*
 
 data class StrainDto(
-        var id: Long? = null,
-        var name: String? = null,
-        var dateReceiving: Date? = null,
-        var collectionIndex: String? = null,
-        var source: String? = null,
-        var creator: String? = null,
-        var dateAdded: Date? = null,
-        var type: StrainTypeDto? = null,
-        var obtainingMethod: String? = null,
-        var factParameters: Set<FactParameterDto>? = null
+    val id: Long? = null,
+    val name: String? = null,
+    val dateReceiving: Date? = null,
+    val collectionIndex: String? = null,
+    val source: String? = null,
+    val creator: String? = null,
+    val dateAdded: Date? = null,
+    val type: StrainTypeDto? = null,
+    val obtainingMethod: String? = null,
+    val factParameters: Set<FactParameterDto>? = null
 ) {
     companion object {
         fun toDto(strain: Strain): StrainDto =
             StrainDto(
-                    id = strain.id,
-                    name = strain.name,
-                    dateReceiving = strain.dateReceiving,
-                    collectionIndex = strain.collectionIndex,
-                    source = strain.source,
-                    creator = strain.creator,
-                    dateAdded = strain.dateAdded,
-                    type = StrainTypeDto.toDto(strain.type),
-                    obtainingMethod = strain.obtainingMethod
+                id = strain.id,
+                name = strain.name,
+                dateReceiving = strain.dateReceiving,
+                collectionIndex = strain.collectionIndex,
+                source = strain.source,
+                creator = strain.creator,
+                dateAdded = strain.dateAdded,
+                type = strain.type?.let { StrainTypeDto.toDto(it) },
+                obtainingMethod = strain.obtainingMethod
             )
     }
 }

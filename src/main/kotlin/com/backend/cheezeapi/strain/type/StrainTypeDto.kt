@@ -1,14 +1,14 @@
 package com.backend.cheezeapi.strain.type
 
-data class StrainTypeDto (
-        var id: Long? = null,
-        var name: String? = null
+data class StrainTypeDto(
+    val id: Long? = null,
+    val name: String? = null
 ) {
     companion object {
         fun toDto(strainType: StrainType): StrainTypeDto =
-                StrainTypeDto(
-                        id = strainType.id,
-                        name = strainType.name
-                )
+            StrainTypeDto(
+                id = strainType.id,
+                name = strainType.name
+            )
     }
 }

@@ -1,14 +1,18 @@
 package com.backend.cheezeapi.strain.type
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.backend.cheezeapi.strain.genus.StrainGenus
+import javax.persistence.*
 
 @Entity
-data class StrainType (
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
-        val name: String
+data class StrainType(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @Column(nullable = false)
+    val name: String? = null,
+
+    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    val genus: StrainGenus? = null
 )

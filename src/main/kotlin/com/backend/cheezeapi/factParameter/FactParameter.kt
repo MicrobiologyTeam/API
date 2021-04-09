@@ -6,14 +6,21 @@ import javax.persistence.*
 
 @Entity
 data class FactParameter(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
-        @ManyToOne(fetch = FetchType.LAZY)
-        val strain: Strain,
-        @ManyToOne(fetch = FetchType.LAZY)
-        val formalParameter: FormalParameter,
-        val value: String,
-        val reserve: String,
-        val groupId: Long
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    val strain: Strain? = null,
+
+    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    val formalParameter: FormalParameter? = null,
+
+    val value: String? = null,
+
+    val reserve: String? = null,
+
+    val groupId: Long? = null
 )

@@ -6,16 +6,31 @@ import javax.persistence.*
 
 @Entity
 data class Strain(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = null,
-        val name: String,
-        val dateReceiving: Date,
-        val collectionIndex: String,
-        val source: String,
-        val creator: String,
-        val dateAdded: Date,
-        @ManyToOne(fetch = FetchType.LAZY)
-        val type: StrainType,
-        val obtainingMethod: String
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    @Column(nullable = false)
+    val name: String? = null,
+
+    @Column(nullable = false)
+    val dateReceiving: Date? = null,
+
+    @Column(nullable = false)
+    val collectionIndex: String? = null,
+
+    @Column(nullable = false)
+    val source: String? = null,
+
+    val creator: String? = null,
+
+    @Column(nullable = false)
+    val dateAdded: Date? = null,
+
+    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    val type: StrainType? = null,
+
+    @Column(nullable = false)
+    val obtainingMethod: String? = null
 )

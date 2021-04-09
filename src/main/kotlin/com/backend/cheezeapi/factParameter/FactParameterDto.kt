@@ -4,22 +4,22 @@ import com.backend.cheezeapi.formalParameter.FormalParameterDto
 import com.backend.cheezeapi.strain.StrainDto
 
 data class FactParameterDto(
-        var id: Long? = null,
-        var strain: StrainDto? = null,
-        var formalParameter: FormalParameterDto? = null,
-        var value: String? = null,
-        var reserve: String? = null,
-        var groupId: Long? = null
+    val id: Long? = null,
+    val strain: StrainDto? = null,
+    val formalParameter: FormalParameterDto? = null,
+    val value: String? = null,
+    val reserve: String? = null,
+    val groupId: Long? = null
 ) {
     companion object {
         fun toDto(factParameter: FactParameter): FactParameterDto =
-                FactParameterDto(
-                        id = factParameter.id,
-                        strain = null,
-                        formalParameter = FormalParameterDto.toDto(factParameter.formalParameter),
-                        value = factParameter.value,
-                        reserve = factParameter.reserve,
-                        groupId = factParameter.groupId
-                )
+            FactParameterDto(
+                id = factParameter.id,
+                strain = null,
+                formalParameter = factParameter.formalParameter?.let { FormalParameterDto.toDto(it) },
+                value = factParameter.value,
+                reserve = factParameter.reserve,
+                groupId = factParameter.groupId
+            )
     }
 }
