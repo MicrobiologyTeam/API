@@ -13,7 +13,8 @@ class FormalParameterService(
     fun saveAll(groupFormalParametersDto: GroupFormalParametersDto): MutableList<FormalParameterDto> {
         val result = mutableListOf<FormalParameterDto>()
 
-        val groupId = groupFormalParametersDto.groupId ?: groupIdRepository.getNewGroupIdFormalParameter()
+        val groupId = if (groupFormalParametersDto.parameters?.size == 1) null
+        else groupFormalParametersDto.groupId ?: groupIdRepository.getNewGroupIdFormalParameter()
 
         groupFormalParametersDto.parameters?.forEach {
             result.add(
