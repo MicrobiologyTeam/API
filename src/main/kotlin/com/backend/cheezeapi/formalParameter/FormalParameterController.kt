@@ -9,7 +9,7 @@ class FormalParameterController(
 ) {
     @PostMapping("save")
     fun saveAll(@RequestBody groupFormalParametersDto: GroupFormalParametersDto): MutableList<FormalParameterDto> =
-        formalParameterService.saveAll(formalParameterDto = groupFormalParametersDto)
+        formalParameterService.saveAll(groupFormalParametersDto = groupFormalParametersDto)
 
     @GetMapping("delete")
     fun delete(@RequestParam id: Long) = formalParameterService.delete(id = id)
