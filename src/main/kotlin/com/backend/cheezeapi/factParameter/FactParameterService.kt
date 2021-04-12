@@ -6,25 +6,66 @@ import org.springframework.stereotype.Service
 
 @Service
 class FactParameterService(
-    private val factParameterRepository: FactParameterRepository
+    private val factParameterRepository: FactParameterRepository,
 ) {
     fun saveAll(factParameterSet: Set<FactParameterDto>, strain: Strain): List<FactParameterDto> =
         factParameterRepository.saveAll(
             factParameterSet.map {
                 FactParameter(
-                    id = null,
+                    id = it.id,
                     strain = strain,
                     formalParameter = FormalParameter(
                         id = it.formalParameter?.id ?: error("Не задан formalParameter.id")
                     ),
-                    value = it.value ?: error("Не задано factParameter.value"),
-                    reserve = it.reserve ?: error("Не задан factParameter.reserve"),
-                    groupId = it.groupId ?: error("Не задан factParameter.groupId"),
+                    value = it.value,
+                    reserve = it.reserve,
+                    groupId = it.groupId
                 )
             }
         ).map {
             FactParameterDto.toDto(it)
         }
+
+    fun save(strainId: Long, ungrouped: List<FactParameterDto>?, groups: List<List<FactParameterDto>>?) {
+        val oldFactParams = factParameterRepository.findByStrainId(strainId).toMutableList()
+        val newFactParams = mutableListOf<FactParameter>().apply {
+            if (ungrouped != null) {
+                addAll(ungrouped.map {
+                    FactParameter(
+                        id = it.id,
+                        strain = it.strain?.let { strainDto -> Strain(strainDto.id) },
+                        formalParameter = FormalParameter(
+                            id = it.formalParameter?.id ?: error("Не задан formalParameter.id")
+                        ),
+                        value = it.value,
+                        reserve = it.reserve,
+                        groupId = it.groupId
+                    )
+                })
+            }
+            groups?.forEach { group ->
+                addAll(group.map {
+                    FactParameter(
+                        id = it.id,
+                        strain = it.strain?.let { strainDto -> Strain(strainDto.id) },
+                        formalParameter = FormalParameter(
+                            id = it.formalParameter?.id ?: error("Не задан formalParameter.id")
+                        ),
+                        value = it.value,
+                        reserve = it.reserve,
+                        groupId = it.groupId
+                    )
+                })
+            }
+        }.toMutableList()
+
+        newFactParams.forEach { factParam ->
+            oldFactParams.removeIf { it.id == factParam.id }
+        }
+
+        factParameterRepository.saveAll(newFactParams)
+        factParameterRepository.deleteAll(oldFactParams)
+    }
 
     fun deleteByStrainId(strainId: Long) {
         factParameterRepository.deleteByStrainId(strainId)

@@ -1,6 +1,5 @@
 package com.backend.cheezeapi.formalParameter
 
-import com.backend.cheezeapi.property.PropertyDto
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -9,8 +8,8 @@ class FormalParameterController(
     private val formalParameterService: FormalParameterService
 ) {
     @PostMapping("save")
-    fun save(@RequestBody formalParameterDto: FormalParameterDto): FormalParameterDto =
-        formalParameterService.save(formalParameterDto = formalParameterDto)
+    fun saveAll(@RequestBody groupFormalParametersDto: GroupFormalParametersDto): MutableList<FormalParameterDto> =
+        formalParameterService.saveAll(formalParameterDto = groupFormalParametersDto)
 
     @GetMapping("delete")
     fun delete(@RequestParam id: Long) = formalParameterService.delete(id = id)

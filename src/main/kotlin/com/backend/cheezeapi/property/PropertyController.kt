@@ -2,6 +2,7 @@ package com.backend.cheezeapi.property
 
 import org.springframework.web.bind.annotation.*
 
+
 @RestController
 @RequestMapping("property")
 class PropertyController(
@@ -18,6 +19,11 @@ class PropertyController(
     fun getOne(@PathVariable id: Long): PropertyDto = propertyService.getOne(id = id)
 
     @GetMapping("")
-    fun findAll(): List<PropertyDto> =
-        propertyService.findAll()
+    fun findAll(): List<PropertyDto> = propertyService.findAll()
+
+    @GetMapping("/with_parameters")
+    fun findAllWithFormalParameters(): List<PropertyWithFormalParameterDto> {
+        return propertyService.findAllWithFormalParameters()
+    }
 }
+

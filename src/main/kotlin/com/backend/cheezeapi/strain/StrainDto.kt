@@ -2,19 +2,19 @@ package com.backend.cheezeapi.strain
 
 import com.backend.cheezeapi.factParameter.FactParameterDto
 import com.backend.cheezeapi.strain.type.StrainTypeDto
-import java.util.*
+import java.time.LocalDate
 
 data class StrainDto(
     val id: Long? = null,
     val name: String? = null,
-    val dateReceiving: Date? = null,
+    val dateReceiving: LocalDate? = null,
     val collectionIndex: String? = null,
     val source: String? = null,
     val creator: String? = null,
-    val dateAdded: Date? = null,
+    val dateAdded: LocalDate? = null,
     val type: StrainTypeDto? = null,
     val obtainingMethod: String? = null,
-    val factParameters: Set<FactParameterDto>? = null
+    val properties: List<StrainPropertiesDto>? = null
 ) {
     companion object {
         fun toDto(strain: Strain): StrainDto =
@@ -31,3 +31,14 @@ data class StrainDto(
             )
     }
 }
+
+data class StrainPropertiesDto(
+    val propertyId: Long? = null,
+    val ungroupedParameters: List<FactParameterDto>? = null,
+    val groups: List<GroupFactParametersDto>? = null
+)
+
+data class GroupFactParametersDto(
+    val groupId: Long? = null,
+    val parameters: List<FactParameterDto>? = null
+)

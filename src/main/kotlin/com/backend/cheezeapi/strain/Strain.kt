@@ -1,7 +1,7 @@
 package com.backend.cheezeapi.strain
 
 import com.backend.cheezeapi.strain.type.StrainType
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
@@ -14,7 +14,7 @@ data class Strain(
     val name: String? = null,
 
     @Column(nullable = false)
-    val dateReceiving: Date? = null,
+    val dateReceiving: LocalDate? = null,
 
     @Column(nullable = false)
     val collectionIndex: String? = null,
@@ -25,7 +25,7 @@ data class Strain(
     val creator: String? = null,
 
     @Column(nullable = false)
-    val dateAdded: Date? = null,
+    val dateAdded: LocalDate? = null,
 
     @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)

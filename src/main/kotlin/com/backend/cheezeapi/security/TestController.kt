@@ -1,5 +1,6 @@
 package com.backend.cheezeapi.security
 
+import com.backend.cheezeapi.groupId.GroupIdRepository
 import com.backend.cheezeapi.security.entity.ActionType
 import com.backend.cheezeapi.security.repository.RoleRepository
 import com.backend.cheezeapi.security.repository.SystemUserRepository
@@ -11,7 +12,8 @@ import javax.annotation.security.RolesAllowed
 @RestController
 class TestController(
     private val systemUserRepository: SystemUserRepository,
-    private val roleRepository: RoleRepository
+    private val roleRepository: RoleRepository,
+    private val groupIdRepository: GroupIdRepository
 ) {
     @GetMapping("change_actions")
     fun changeActions(): List<ActionType> {
@@ -25,6 +27,9 @@ class TestController(
 
         return enumValues<ActionType>().toList()
     }
+
+    @GetMapping("test")
+    fun test(): Long = groupIdRepository.getNewGroupIdFactParameter()
 
     @PreAuthorize("hasAuthority('${ActionType.Names.Action1}')")
     @GetMapping("test1")

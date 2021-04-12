@@ -1,5 +1,6 @@
 package com.backend.cheezeapi.strain.type
 
+import com.backend.cheezeapi.strain.genus.StrainGenus
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,10 +12,15 @@ class StrainTypeService(
             strainTypeRepository.save(
                 StrainType(
                     id = strainTypeDto.id,
-                    name = strainTypeDto.name ?: error("Не задано имя для типа штамма")
+                    name = strainTypeDto.name ?: error("Не задано имя для типа штамма"),
+                    genus = StrainGenus(
+                        id = strainTypeDto.genus?.id ?: error("Не задан id рода")
+                    )
                 )
             )
         )
+
+    fun deleteById(id: Long) = strainTypeRepository.deleteById(id)
 
     fun findAll(): List<StrainTypeDto> =
         strainTypeRepository.findAll().map {

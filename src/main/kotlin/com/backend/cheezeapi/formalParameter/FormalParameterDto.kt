@@ -23,3 +23,8 @@ data class FormalParameterDto(
             )
     }
 }
+
+data class GroupFormalParametersDto(
+    val groupId: Long? = null,
+    val parameters: List<FormalParameterDto>? = null
+)
