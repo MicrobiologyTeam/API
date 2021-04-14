@@ -1,10 +1,8 @@
 package com.backend.cheezeapi.factParameter
 
 import com.backend.cheezeapi.formalParameter.FormalParameter
-import com.backend.cheezeapi.formalParameter.FormalParameterRepository
 import com.backend.cheezeapi.property.Property
 import com.backend.cheezeapi.strain.Strain
-import org.hibernate.Session
 import org.springframework.stereotype.Service
 
 @Service
@@ -40,9 +38,11 @@ class FactParameterService(
 
     }
 
-    fun deleteByStrainId(strainId: Long) {
-        factParameterRepository.deleteByStrainId(strainId)
+    fun deleteByStrainId(id: Long) {
+        factParameterRepository.deleteByStrainId(id)
     }
+
+    fun findByStrainId(id: Long) = factParameterRepository.findByStrainId(id).map(FactParameterDto::toDto)
 
     private fun toSave(it: FactParameterDto) = FactParameter(
         id = it.id,

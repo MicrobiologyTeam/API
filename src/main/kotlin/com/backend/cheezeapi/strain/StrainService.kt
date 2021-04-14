@@ -1,9 +1,7 @@
 package com.backend.cheezeapi.strain
 
-import com.backend.cheezeapi.factParameter.FactParameterDto
 import com.backend.cheezeapi.factParameter.FactParameterService
 import com.backend.cheezeapi.groupId.GroupIdRepository
-import com.backend.cheezeapi.property.PropertyDto
 import com.backend.cheezeapi.strain.type.StrainType
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
@@ -65,7 +63,37 @@ class StrainService(
         strainRepository.deleteById(strainId)
     }
 
-    fun getOne(id: Long): StrainDto = StrainDto.toDto(strainRepository.getOne(id))
+    fun getOne(id: Long): StrainDto {
+        val strain = StrainDto.toDto(strainRepository.getOne(id))
+        val factParameters = factParameterService.findByStrainId(id)
+
+        return strain.copy(properties = factParameters.groupBy { it.formalParameter?.property?.id to it.formalParameter?.property?.name }
+            .map { property ->
+                val params = property.value.groupBy { it.groupId == null }
+                StrainPropertiesDto(
+                    propertyId = property.key.first,
+                    propertyName = property.key.second,
+                    ungroupedParameters = params[true]?.map {
+                        it.copy(
+                            formalParameter = it.formalParameter?.copy(
+                                property = null
+                            )
+                        )
+                    },
+                    groups = params[false]?.groupBy { it.groupId }?.map { group ->
+                        GroupFactParametersDto(
+                            groupId = group.key,
+                            parameters = group.value.map {
+                                it.copy(
+                                    formalParameter = it.formalParameter?.copy(
+                                        property = null
+                                    )
+                                )
+                            })
+                    }
+                )
+            })
+    }
 
     fun findAll(): List<StrainDto> =
         strainRepository.findAll().map { StrainDto.toDto(it) }

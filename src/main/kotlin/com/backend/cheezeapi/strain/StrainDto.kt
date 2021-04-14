@@ -34,6 +34,7 @@ data class StrainDto(
 
 data class StrainPropertiesDto(
     val propertyId: Long? = null,
+    val propertyName: String? = null,
     val ungroupedParameters: List<FactParameterDto>? = null,
     val groups: List<GroupFactParametersDto>? = null
 )

@@ -4,14 +4,17 @@ import com.backend.cheezeapi.groupId.GroupIdRepository
 import com.backend.cheezeapi.parameterDataType.ParameterDataType
 import com.backend.cheezeapi.property.Property
 import com.backend.cheezeapi.property.PropertyDto
+import com.backend.cheezeapi.property.PropertyService
+import com.backend.cheezeapi.property.PropertyWithFormalParameterDto
 import org.springframework.stereotype.Service
 
 @Service
 class FormalParameterService(
     private val formalParameterRepository: FormalParameterRepository,
-    private val groupIdRepository: GroupIdRepository
+    private val groupIdRepository: GroupIdRepository,
+    private val propertyService: PropertyService
 ) {
-    fun save(formalParametersDto: FormalParametersDto) {
+    fun save(formalParametersDto: FormalParametersDto): PropertyWithFormalParameterDto {
         val oldFormalParameters =
             formalParameterRepository.findByPropertyId(formalParametersDto.propertyId ?: error("propertyId не задан"))
                 .toMutableList()
@@ -40,6 +43,8 @@ class FormalParameterService(
 
         formalParameterRepository.saveAll(newFormalParameters)
         formalParameterRepository.deleteAll(oldFormalParameters)
+
+        return propertyService.getOne(formalParametersDto.propertyId)
     }
 
     fun delete(id: Long) = formalParameterRepository.deleteById(id)

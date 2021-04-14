@@ -15,7 +15,7 @@ data class FactParameter(
     val strain: Strain? = null,
 
     @JoinColumn(nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     val formalParameter: FormalParameter? = null,
 
     val value: String? = null,

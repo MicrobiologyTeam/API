@@ -1,5 +1,7 @@
 package com.backend.cheezeapi.strain
 
+import com.backend.cheezeapi.factParameter.FactParameter
+import com.backend.cheezeapi.factParameter.FactParameterRepository
 import org.springframework.web.bind.annotation.*
 
 @RestController

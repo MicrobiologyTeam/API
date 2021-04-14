@@ -16,7 +16,7 @@ class PropertyController(
     fun delete(@RequestParam id: Long) = propertyService.delete(id = id)
 
     @GetMapping("{id}")
-    fun getOne(@PathVariable id: Long): PropertyDto = propertyService.getOne(id = id)
+    fun getOne(@PathVariable id: Long): PropertyWithFormalParameterDto = propertyService.getOne(id = id)
 
     @GetMapping("")
     fun findAll(): List<PropertyDto> = propertyService.findAll()
