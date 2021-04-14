@@ -1,7 +1,9 @@
 package com.backend.cheezeapi.strain
 
+import com.backend.cheezeapi.factParameter.FactParameterDto
 import com.backend.cheezeapi.factParameter.FactParameterService
 import com.backend.cheezeapi.groupId.GroupIdRepository
+import com.backend.cheezeapi.property.PropertyDto
 import com.backend.cheezeapi.strain.type.StrainType
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
@@ -46,7 +48,7 @@ class StrainService(
                 groupFactParameterDto.parameters
                     ?.map {
                         it.copy(
-                            strain = StrainDto(id = groupFactParameterDto.groupId),
+                            strain = StrainDto(id = strain.id),
                             groupId = groupId
                         )
                     }

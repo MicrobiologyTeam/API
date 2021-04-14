@@ -11,7 +11,7 @@ class StrainTypeController(
     fun save(@RequestBody strainTypeDto: StrainTypeDto): StrainTypeDto =
         strainTypeService.save(strainTypeDto)
 
-    @PostMapping("delete")
+    @GetMapping("delete")
     fun delete(@RequestParam id: Long) = strainTypeService.deleteById(id)
 
     @GetMapping("")

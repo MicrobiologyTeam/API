@@ -1,7 +1,9 @@
 package com.backend.cheezeapi.formalParameter
 
+import com.backend.cheezeapi.factParameter.FactParameterDto
 import com.backend.cheezeapi.parameterDataType.ParameterDataTypeDto
 import com.backend.cheezeapi.property.PropertyDto
+import com.backend.cheezeapi.strain.GroupFactParametersDto
 
 data class FormalParameterDto(
     val id: Long? = null,
@@ -23,6 +25,12 @@ data class FormalParameterDto(
             )
     }
 }
+
+data class FormalParametersDto(
+    val propertyId: Long? = null,
+    val ungroupedParameters: List<FormalParameterDto>? = null,
+    val groups: List<GroupFormalParametersDto>? = null
+)
 
 data class GroupFormalParametersDto(
     val groupId: Long? = null,

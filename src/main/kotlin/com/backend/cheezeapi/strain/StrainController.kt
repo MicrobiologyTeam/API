@@ -11,9 +11,9 @@ class StrainController(
     fun save(@RequestBody strainDto: StrainDto): StrainDto =
         strainService.save(strainDto)
 
-    @DeleteMapping("delete")
-    fun deleteById(@RequestParam strainId: Long) =
-        strainService.deleteById(strainId)
+    @GetMapping("delete")
+    fun deleteById(@RequestParam id: Long) =
+        strainService.deleteById(id)
 
     @GetMapping("{id}")
     fun getOne(@PathVariable id: Long): StrainDto = strainService.getOne(id = id)
