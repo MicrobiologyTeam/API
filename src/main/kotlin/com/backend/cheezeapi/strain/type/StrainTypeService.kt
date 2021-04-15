@@ -2,14 +2,16 @@ package com.backend.cheezeapi.strain.type
 
 import com.backend.cheezeapi.strain.genus.StrainGenus
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class StrainTypeService(
     private val strainTypeRepository: StrainTypeRepository
 ) {
+    @Transactional
     fun save(strainTypeDto: StrainTypeDto): StrainTypeDto =
         StrainTypeDto.toDto(
-            strainTypeRepository.save(
+            strainTypeRepository.saveAndFlush(
                 StrainType(
                     id = strainTypeDto.id,
                     name = strainTypeDto.name ?: error("Не задано имя для типа штамма"),
@@ -26,5 +28,4 @@ class StrainTypeService(
         strainTypeRepository.findAll().map {
             StrainTypeDto.toDto(it)
         }
-
 }
