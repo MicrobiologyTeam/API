@@ -21,5 +21,7 @@ class StrainController(
     fun getOne(@PathVariable id: Long): StrainDto = strainService.getOne(id = id)
 
     @GetMapping("")
-    fun findAll() = strainService.findAll()
+    fun findAll(@RequestParam(defaultValue = "0") page: Long ,
+                @RequestParam(defaultValue = "50") size: Long) =
+            strainService.findAll(page, size)
 }

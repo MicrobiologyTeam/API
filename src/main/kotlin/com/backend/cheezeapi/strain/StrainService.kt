@@ -3,32 +3,39 @@ package com.backend.cheezeapi.strain
 import com.backend.cheezeapi.factParameter.FactParameterService
 import com.backend.cheezeapi.groupId.GroupIdRepository
 import com.backend.cheezeapi.strain.type.StrainType
+import com.backend.cheezeapi.utils.PaginationHelper
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
+import java.util.*
 import java.util.stream.Collectors
+
 
 @Service
 class StrainService(
-    private val strainRepository: StrainRepository,
-    private val factParameterService: FactParameterService,
-    private val groupIdRepository: GroupIdRepository
+        private val strainRepository: StrainRepository,
+        private val factParameterService: FactParameterService,
+        private val groupIdRepository: GroupIdRepository
 ) {
     fun save(strainDto: StrainDto): StrainDto {
         val strain = StrainDto.toDto(
-            strainRepository.save(
-                Strain(
-                    id = strainDto.id,
-                    name = strainDto.name ?: error("Не задан name"),
-                    dateReceiving = strainDto.dateReceiving ?: error("Не задан dateReceiving"),
-                    collectionIndex = strainDto.collectionIndex ?: error("Не задан collectionIndex"),
-                    source = strainDto.source ?: error("Не задан source"),
-                    creator = strainDto.creator,
-                    dateAdded = strainDto.dateAdded ?: error("Не задан dateAdded"),
-                    type = StrainType(
-                        id = strainDto.type?.id ?: error("Не задан id type strain")
-                    ),
-                    obtainingMethod = strainDto.obtainingMethod ?: error("Не задан obtainingMethod"),
+                strainRepository.save(
+                        Strain(
+                                id = strainDto.id,
+                                name = strainDto.name ?: error("Не задан name"),
+                                dateReceiving = strainDto.dateReceiving ?: error("Не задан dateReceiving"),
+                                collectionIndex = strainDto.collectionIndex ?: error("Не задан collectionIndex"),
+                                source = strainDto.source ?: error("Не задан source"),
+                                creator = strainDto.creator,
+                                dateAdded = strainDto.dateAdded ?: error("Не задан dateAdded"),
+                                type = StrainType(
+                                        id = strainDto.type?.id ?: error("Не задан id type strain")
+                                ),
+                                obtainingMethod = strainDto.obtainingMethod ?: error("Не задан obtainingMethod"),
+                        )
                 )
-            )
         )
 
         val ungrouped = strainDto.properties?.stream()
@@ -46,8 +53,8 @@ class StrainService(
                 groupFactParameterDto.parameters
                     ?.map {
                         it.copy(
-                            strain = StrainDto(id = strain.id),
-                            groupId = groupId
+                                strain = StrainDto(id = strain.id),
+                                groupId = groupId
                         )
                     }
             }
@@ -68,33 +75,33 @@ class StrainService(
         val factParameters = factParameterService.findByStrainId(id)
 
         return strain.copy(properties = factParameters.groupBy { it.formalParameter?.property?.id to it.formalParameter?.property?.name }
-            .map { property ->
-                val params = property.value.groupBy { it.groupId == null }
-                StrainPropertiesDto(
-                    propertyId = property.key.first,
-                    propertyName = property.key.second,
-                    ungroupedParameters = params[true]?.map {
-                        it.copy(
-                            formalParameter = it.formalParameter?.copy(
-                                property = null
-                            )
-                        )
-                    },
-                    groups = params[false]?.groupBy { it.groupId }?.map { group ->
-                        GroupFactParametersDto(
-                            groupId = group.key,
-                            parameters = group.value.map {
+                .map { property ->
+                    val params = property.value.groupBy { it.groupId == null }
+                    StrainPropertiesDto(
+                            propertyId = property.key.first,
+                            propertyName = property.key.second,
+                            ungroupedParameters = params[true]?.map {
                                 it.copy(
-                                    formalParameter = it.formalParameter?.copy(
-                                        property = null
-                                    )
+                                        formalParameter = it.formalParameter?.copy(
+                                                property = null
+                                        )
                                 )
-                            })
-                    }
-                )
-            })
+                            },
+                            groups = params[false]?.groupBy { it.groupId }?.map { group ->
+                                GroupFactParametersDto(
+                                        groupId = group.key,
+                                        parameters = group.value.map {
+                                            it.copy(
+                                                    formalParameter = it.formalParameter?.copy(
+                                                            property = null
+                                                    )
+                                            )
+                                        })
+                            }
+                    )
+                })
     }
 
-    fun findAll(): List<StrainDto> =
-        strainRepository.findAll().map { StrainDto.toDto(it) }
+    fun findAll(pageNo: Long, size: Long): List<StrainDto> =
+            PaginationHelper.getContent(strainRepository, pageNo, size).map { StrainDto.toDto(it) }
 }
