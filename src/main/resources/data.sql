@@ -6,15 +6,16 @@ CREATE SEQUENCE IF NOT EXISTS FactParameterGroupIdSequence
 INCREMENT 1
 START 1;
 
+INSERT INTO "parameter_data_type" ("name") VALUES
+('String'),
+('Int'),
+('Date');
+
 INSERT INTO "property" ("code", "name") VALUES
 ('1',	'Property1'),
 ('2',	'Property2'),
 ('3',	'Property3');
 
-INSERT INTO "parameter_data_type" ("name") VALUES
-('String'),
-('Int'),
-('Date');
 
 INSERT INTO "strain_genus" ("name") VALUES
 ('Genus1'),
