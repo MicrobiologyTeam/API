@@ -24,4 +24,11 @@ class StrainController(
     fun findAll(@RequestParam(defaultValue = "0") page: Long ,
                 @RequestParam(defaultValue = "50") size: Long) =
             strainService.findAll(page, size)
+
+    @PostMapping("list")
+    fun findAllByPredicate(
+            @RequestParam(defaultValue = "0") page: Long,
+            @RequestParam(defaultValue = "50") size: Long,
+            @RequestBody predicate: SearchPredicateDto) =
+            strainService.findAllByPredicate(page, size, predicate)
 }
