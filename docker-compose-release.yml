@@ -26,3 +26,10 @@ services:
     links: 
       - db
     command: ["java", "-jar", "/usr/src/app/cheeze-api-0.0.1-SNAPSHOT.jar", "--spring.config.location=config/application.release.properties"]
+
+  frontend:
+    image: nginx:1.19
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend:/usr/share/nginx/html

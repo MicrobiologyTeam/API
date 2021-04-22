@@ -14,3 +14,10 @@ services:
     restart: always
     ports:
       - 7070:8080
+
+  frontend:
+    image: nginx:1.19
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend:/usr/share/nginx/html
