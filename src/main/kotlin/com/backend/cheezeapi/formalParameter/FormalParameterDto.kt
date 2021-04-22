@@ -6,7 +6,7 @@ import com.backend.cheezeapi.property.PropertyDto
 data class FormalParameterDto(
     val id: Long? = null,
     val property: PropertyDto? = null,
-    val value: String? = null,
+    val name: String? = null,
     val parameterDataType: ParameterDataTypeDto? = null,
     val groupId: Long? = null,
     val isNote: Boolean? = null
@@ -16,10 +16,9 @@ data class FormalParameterDto(
             FormalParameterDto(
                 id = formalParameter.id,
                 property = formalParameter.property?.let { PropertyDto.toDto(it) },
-                value = formalParameter.value,
+                name = formalParameter.name,
                 parameterDataType = formalParameter.parameterDataType?.let { ParameterDataTypeDto.toDto(it) },
-                groupId = formalParameter.groupId,
-                isNote = formalParameter.isNote
+                groupId = formalParameter.groupId
             )
     }
 }

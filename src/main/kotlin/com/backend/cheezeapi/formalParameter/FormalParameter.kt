@@ -15,14 +15,11 @@ data class FormalParameter(
     val property: Property? = null,
 
     @Column(nullable = false)
-    val value: String? = null,
+    val name: String? = null,
 
     val groupId: Long? = null,
 
     @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    val parameterDataType: ParameterDataType? = null,
-
-    @Column(nullable = false)
-    val isNote: Boolean? = null
+    val parameterDataType: ParameterDataType? = null
 )

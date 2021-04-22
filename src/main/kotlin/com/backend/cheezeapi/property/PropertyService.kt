@@ -15,7 +15,8 @@ class PropertyService(
             Property(
                 id = propertyDto.id,
                 code = propertyDto.code,
-                name = propertyDto.name ?: error("Не задано имя для свойства")
+                name = propertyDto.name ?: error("Не задано имя для свойства"),
+                isNote = propertyDto.isNote ?: error("Нет задан тип параметра, примечание или нет?")
             )
         )
     )

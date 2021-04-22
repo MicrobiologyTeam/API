@@ -8,8 +8,11 @@ START 1;
 
 INSERT INTO "parameter_data_type" ("name") VALUES
 ('String'),
-('Int'),
-('Date');
+('Number'),
+('Time'),
+('Boolean'),
+('Date'),
+('Item');
 
 INSERT INTO "property" ("code", "name") VALUES
 ('1',	'Property1'),

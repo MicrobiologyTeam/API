@@ -64,8 +64,7 @@ class FormalParameterService(
         parameterDataType = ParameterDataType(
             id = it.parameterDataType?.id ?: error("ИД типа формального параметра не задан")
         ),
-        value = it.value ?: error("Не задано название формального параметра"),
-        groupId = it.groupId,
-        isNote = it.isNote ?: error("Нет задан тип параметра, примечание или нет?")
+        name = it.name ?: error("Не задано название формального параметра"),
+        groupId = it.groupId
     )
 }

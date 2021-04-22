@@ -12,5 +12,8 @@ data class Property(
     val code: String? = null,
 
     @Column(unique = true, nullable = false)
-    val name: String? = null
+    val name: String? = null,
+
+    @Column(nullable = false)
+    val isNote: Boolean? = null
 )
