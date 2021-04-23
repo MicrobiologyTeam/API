@@ -8,7 +8,7 @@ data class SearchPredicateDto (
 )
 
 data class PredicateDto (
-        val formalParameterDto: FormalParameterDto,
+        val formalParameter: FormalParameterDto,
         val condition: String,
         val value: FactParameterDto,
 )

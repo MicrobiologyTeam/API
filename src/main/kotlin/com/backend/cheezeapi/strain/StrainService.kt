@@ -1,7 +1,7 @@
 package com.backend.cheezeapi.strain
 
 import com.backend.cheezeapi.factParameter.FactParameterService
-import com.backend.cheezeapi.formalParameter.QFormalParameter.formalParameter
+import com.backend.cheezeapi.factParameter.QFactParameter.factParameter
 import com.backend.cheezeapi.groupId.GroupIdRepository
 import com.backend.cheezeapi.strain.QStrain.strain
 import com.backend.cheezeapi.strain.type.StrainType
@@ -105,23 +105,30 @@ class StrainService(
             PaginationHelper.getContent(strainRepository, pageNo, size).map { StrainDto.toDto(it) }
 
 
-    //TODO: Fix me)
     fun findAllByPredicate(page: Long, size: Long, predicateDto: SearchPredicateDto): List<StrainDto> {
-        var predicate: Predicate = strain.id.isNotNull
+        var result: MutableList<Strain> = mutableListOf()
 
         // Add formal parameters checking
-        /*
-        predicateDto.predicates.forEach {
-            when(it.condition) {
-                "and" -> predicate = and(predicate, )
-                "or" -> predicate = or(predicate, )
-                "=" -> predicate = eq(predicate, )
-            }
-            predicate = and(predicate, )
-        }
-        */
 
-        return strainRepository.findStrainsByPredicate(predicate).map {
+        predicateDto.predicates.forEach {
+            val strains: List<Strain> = strainRepository.findStrainsByPredicate(and(
+                    factParameter.value.eq(it.value.value),
+                    when(it.condition) {
+                        "=" -> factParameter.value.eq(it.value.value)
+                        else -> error("Нет такого условия")
+                    }))
+
+            if (result.isEmpty()){
+                result.addAll(strains)
+            } else {
+                val strainIds = strains.map { it.id }
+                result = result.filter{
+                    strainIds.contains(it.id)
+                }.toMutableList()
+            }
+        }
+
+        return result.map {
             StrainDto.toDto(it)
         }
     }
