@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.*
 class PropertyController(
     private val propertyService: PropertyService
 ) {
-    @PostMapping("save")
+    @PostMapping
     fun save(@RequestBody propertyDto: PropertyDto): PropertyDto =
         propertyService.save(propertyDto = propertyDto)
 
-    @GetMapping("delete")
-    fun delete(@RequestParam id: Long) = propertyService.delete(id = id)
+    @DeleteMapping("{id}")
+    fun delete(@PathVariable id: Long) = propertyService.delete(id = id)
 
     @GetMapping("{id}")
     fun getOne(@PathVariable id: Long): PropertyWithFormalParameterDto = propertyService.getOne(id = id)
 
-    @GetMapping("")
+    @GetMapping
     fun findAll(): List<PropertyDto> = propertyService.findAll()
 
     @GetMapping("/with_parameters")

@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.*
 class StrainGenusController(
     private val strainGenusService: StrainGenusService
 ) {
-    @PostMapping("save")
+    @PostMapping
     fun save(@RequestBody strainGenusDto: StrainGenusDto): StrainGenusDto =
         strainGenusService.save(strainGenusDto)
 
-    @PostMapping("delete")
-    fun delete(@RequestParam id: Long) = strainGenusService.deleteById(id)
+    @PostMapping("{id}")
+    fun delete(@PathVariable id: Long) = strainGenusService.deleteById(id)
 
-    @GetMapping("")
+    @GetMapping
     fun findAll(): List<StrainGenusDto> =
         strainGenusService.findAll()
 }

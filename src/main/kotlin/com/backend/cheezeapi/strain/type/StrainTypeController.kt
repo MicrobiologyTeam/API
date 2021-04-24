@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.*
 class StrainTypeController(
     private val strainTypeService: StrainTypeService
 ) {
-    @PostMapping("save")
+    @PostMapping
     fun save(@RequestBody strainTypeDto: StrainTypeDto): StrainTypeDto =
         strainTypeService.save(strainTypeDto)
 
-    @GetMapping("delete")
-    fun delete(@RequestParam id: Long) = strainTypeService.deleteById(id)
+    @DeleteMapping("{id}")
+    fun delete(@PathVariable id: Long) = strainTypeService.deleteById(id)
 
-    @GetMapping("")
+    @GetMapping
     fun findAll(): List<StrainTypeDto> =
         strainTypeService.findAll()
 }

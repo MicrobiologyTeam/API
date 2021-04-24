@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 class ParameterDataTypeController(
     private val parameterDataTypeRepository: ParameterDataTypeRepository
 ) {
-    @GetMapping("")
+    @GetMapping
     fun findAll(): List<ParameterDataType> =
         parameterDataTypeRepository.findAll()
 }

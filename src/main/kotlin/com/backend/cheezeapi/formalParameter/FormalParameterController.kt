@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.*
 class FormalParameterController(
     private val formalParameterService: FormalParameterService
 ) {
-    @PostMapping("save")
+    @PostMapping
     fun save(@RequestBody formalParametersDto: FormalParametersDto): PropertyWithFormalParameterDto =
         formalParameterService.save(formalParametersDto = formalParametersDto)
 
-    @GetMapping("delete")
-    fun delete(@RequestParam id: Long) = formalParameterService.delete(id = id)
+    @DeleteMapping("{id}")
+    fun delete(@PathVariable id: Long) = formalParameterService.delete(id = id)
 
     @GetMapping("{id}")
     fun getOne(@PathVariable id: Long): FormalParameterDto = formalParameterService.getOne(id = id)
 
-    @GetMapping("")
+    @GetMapping
     fun findAll(): List<FormalParameterDto> =
         formalParameterService.findAll()
 }
