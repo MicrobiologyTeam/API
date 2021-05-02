@@ -28,4 +28,8 @@ class StrainTypeService(
         strainTypeRepository.findAll().map {
             StrainTypeDto.toDto(it)
         }
+
+    fun findByGenusId(id: Long): List<StrainTypeDto> = strainTypeRepository.findByGenusId(id).map {
+        StrainTypeDto.toDto(it).copy(genus = null)
+    }
 }
