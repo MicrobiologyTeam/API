@@ -11,7 +11,7 @@ class StrainGenusController(
     fun save(@RequestBody strainGenusDto: StrainGenusDto): StrainGenusDto =
         strainGenusService.save(strainGenusDto)
 
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     fun delete(@PathVariable id: Long) = strainGenusService.deleteById(id)
 
     @GetMapping

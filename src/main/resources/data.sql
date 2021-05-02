@@ -19,7 +19,6 @@ INSERT INTO "property" ("code", "is_note", "name") VALUES
 ('2', true,	'Property2'),
 ('3', true,	'Property3');
 
-
 INSERT INTO "strain_genus" ("name") VALUES
 ('Genus1'),
 ('Genus2'),
