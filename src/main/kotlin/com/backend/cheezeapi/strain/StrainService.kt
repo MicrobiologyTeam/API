@@ -133,4 +133,6 @@ class StrainService(
         }
     }
 
+    fun findByTypeId(id: Long): List<StrainDto> = strainRepository.findByTypeId(id).map(StrainDto::toDto)
+
 }
