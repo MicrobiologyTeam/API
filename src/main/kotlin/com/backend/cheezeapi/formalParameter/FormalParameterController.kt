@@ -21,6 +21,9 @@ class FormalParameterController(
     @GetMapping("in-use/{id}")
     fun inUse(@PathVariable id: Long): Boolean = formalParameterService.inUse(id = id)
 
+    @PostMapping("in-use-batch")
+    fun inUseBatch(@RequestBody ids: List<Long>): Boolean = formalParameterService.inUseBatch(ids)
+
     @GetMapping
     fun findAll(): List<FormalParameterDto> =
         formalParameterService.findAll()

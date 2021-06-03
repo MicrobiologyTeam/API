@@ -71,4 +71,11 @@ class FormalParameterService(
     )
 
     fun inUse(id: Long): Boolean = factParameterRepository.findByFormalParameterId(id).isNotEmpty()
+
+    fun inUseBatch(ids: List<Long>): Map<Long, Boolean> =
+        mutableMapOf<Long, Boolean>().apply {
+            ids.forEach {
+                this[it] = inUse(it)
+            }
+        }
 }
