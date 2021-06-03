@@ -1,6 +1,7 @@
 package com.backend.cheezeapi.formalParameter
 
 import com.backend.cheezeapi.property.PropertyWithFormalParameterDto
+import com.sun.org.apache.xpath.internal.operations.Bool
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -22,7 +23,7 @@ class FormalParameterController(
     fun inUse(@PathVariable id: Long): Boolean = formalParameterService.inUse(id = id)
 
     @PostMapping("in-use-batch")
-    fun inUseBatch(@RequestBody ids: List<Long>): Boolean = formalParameterService.inUseBatch(ids)
+    fun inUseBatch(@RequestBody ids: List<Long>): Map<Long, Boolean> = formalParameterService.inUseBatch(ids)
 
     @GetMapping
     fun findAll(): List<FormalParameterDto> =
