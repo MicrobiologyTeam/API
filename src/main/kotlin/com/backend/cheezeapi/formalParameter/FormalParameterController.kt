@@ -26,6 +26,5 @@ class FormalParameterController(
     fun inUseBatch(@RequestBody ids: List<Long>): Map<Long, Boolean> = formalParameterService.inUseBatch(ids)
 
     @GetMapping
-    fun findAll(): List<FormalParameterDto> =
-        formalParameterService.findAll()
+    fun findAll(): List<FormalParameterDto> = formalParameterService.findAll()
 }

@@ -13,6 +13,7 @@ class PropertyController(
         propertyService.save(propertyDto = propertyDto)
 
     @DeleteMapping("{id}")
+    @ResponseStatus()
     fun delete(@PathVariable id: Long) = propertyService.delete(id = id)
 
     @GetMapping("{id}")
