@@ -18,6 +18,9 @@ class FormalParameterController(
     @GetMapping("{id}")
     fun getOne(@PathVariable id: Long): FormalParameterDto = formalParameterService.getOne(id = id)
 
+    @GetMapping("in-use/{id}")
+    fun inUse(@PathVariable id: Long): Boolean = formalParameterService.inUse(id = id)
+
     @GetMapping
     fun findAll(): List<FormalParameterDto> =
         formalParameterService.findAll()

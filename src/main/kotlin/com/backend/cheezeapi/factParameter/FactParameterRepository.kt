@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface FactParameterRepository : JpaRepository<FactParameter, Long> {
     fun deleteByStrainId(id: Long): List<FactParameter>
     fun findByStrainId(id: Long): List<FactParameter>
+    fun findByFormalParameterId(id: Long): List<FactParameter>
 }

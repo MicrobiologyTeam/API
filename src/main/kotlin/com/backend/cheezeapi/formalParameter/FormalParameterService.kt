@@ -1,5 +1,6 @@
 package com.backend.cheezeapi.formalParameter
 
+import com.backend.cheezeapi.factParameter.FactParameterRepository
 import com.backend.cheezeapi.groupId.GroupIdRepository
 import com.backend.cheezeapi.parameterDataType.ParameterDataType
 import com.backend.cheezeapi.property.Property
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class FormalParameterService(
     private val formalParameterRepository: FormalParameterRepository,
+    private val factParameterRepository: FactParameterRepository,
     private val groupIdRepository: GroupIdRepository,
     private val propertyService: PropertyService
 ) {
@@ -67,4 +69,6 @@ class FormalParameterService(
         name = it.name ?: error("Не задано название формального параметра"),
         groupId = it.groupId
     )
+
+    fun inUse(id: Long): Boolean = factParameterRepository.findByFormalParameterId(id).isNotEmpty()
 }
