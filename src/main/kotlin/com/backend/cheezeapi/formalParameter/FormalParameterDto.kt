@@ -24,8 +24,8 @@ data class FormalParameterDto(
 }
 
 data class FormalParametersDto(
-    val propertyId: Long? = null,
-    val ungroupedParameters: List<FormalParameterDto>? = null,
+    val id: Long? = null,
+    val ungrouped: List<FormalParameterDto>? = null,
     val groups: List<GroupFormalParametersDto>? = null
 )
 

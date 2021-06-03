@@ -12,22 +12,21 @@ import org.springframework.web.server.ResponseStatusException
 class PropertyService(
         private val propertyRepository: PropertyRepository,
         private val formalParameterRepository: FormalParameterRepository,
-        private val groupIdRepository: GroupIdRepository,
-        private val propertyService: PropertyService
+        private val groupIdRepository: GroupIdRepository
 ) {
     fun save(formalParametersDto: FormalParametersDto): PropertyWithFormalParameterDto {
         val oldFormalParameters =
-                formalParameterRepository.findByPropertyId(formalParametersDto.propertyId ?: error("propertyId не задан"))
+                formalParameterRepository.findByPropertyId(formalParametersDto.id ?: error("propertyId не задан"))
                         .toMutableList()
 
-        val ungrouped = formalParametersDto.ungroupedParameters
-                ?.map { it.copy(property = PropertyDto(formalParametersDto.propertyId)) }
+        val ungrouped = formalParametersDto.ungrouped
+                ?.map { it.copy(property = PropertyDto(formalParametersDto.id)) }
 
         val groups = formalParametersDto.groups?.map { group ->
             val groupId = group.groupId ?: groupIdRepository.getNewGroupIdFormalParameter()
             group.parameters?.map {
                 it.copy(
-                        property = PropertyDto(formalParametersDto.propertyId),
+                        property = PropertyDto(formalParametersDto.id),
                         groupId = groupId
                 )
             }
@@ -45,7 +44,7 @@ class PropertyService(
         formalParameterRepository.saveAll(newFormalParameters)
         formalParameterRepository.deleteAll(oldFormalParameters)
 
-        return propertyService.getOne(formalParametersDto.propertyId)
+        return getOne(formalParametersDto.id)
     }
 
     private fun toSave(it: FormalParameterDto) = FormalParameter(

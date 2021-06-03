@@ -27,7 +27,7 @@ class PropertyController(
     @GetMapping
     fun findAll(): List<PropertyDto> = propertyService.findAll()
 
-    @GetMapping("/with_parameters")
+    @GetMapping("/with-params")
     fun findAllWithFormalParameters(): List<PropertyWithFormalParameterDto> {
         return propertyService.findAllWithFormalParameters()
     }

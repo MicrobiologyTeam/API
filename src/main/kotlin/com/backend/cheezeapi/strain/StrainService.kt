@@ -3,11 +3,9 @@ package com.backend.cheezeapi.strain
 import com.backend.cheezeapi.factParameter.FactParameterService
 import com.backend.cheezeapi.factParameter.QFactParameter.factParameter
 import com.backend.cheezeapi.groupId.GroupIdRepository
-import com.backend.cheezeapi.strain.QStrain.strain
 import com.backend.cheezeapi.strain.type.StrainType
 import com.backend.cheezeapi.utils.PaginationHelper
 import com.querydsl.core.types.ExpressionUtils.*
-import com.querydsl.core.types.Predicate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors
@@ -39,7 +37,7 @@ class StrainService(
         )
 
         val ungrouped = strainDto.properties?.stream()
-                ?.map { properties -> properties.ungroupedParameters }
+                ?.map { properties -> properties.ungrouped }
                 ?.map { list -> list?.map { it.copy(strain = StrainDto(id = strain.id)) } }
                 ?.flatMap { it?.stream() }
                 ?.collect(Collectors.toList())
@@ -79,9 +77,9 @@ class StrainService(
                 .map { property ->
                     val params = property.value.groupBy { it.groupId == null }
                     StrainPropertiesDto(
-                            propertyId = property.key.first,
-                            propertyName = property.key.second,
-                            ungroupedParameters = params[true]?.map {
+                            id = property.key.first,
+                            name = property.key.second,
+                            ungrouped = params[true]?.map {
                                 it.copy(
                                         formalParameter = it.formalParameter?.copy(
                                                 property = null
