@@ -1,5 +1,6 @@
 package com.backend.cheezeapi.property
 
+import com.backend.cheezeapi.formalParameter.FormalParametersDto
 import org.springframework.web.bind.annotation.*
 
 
@@ -8,6 +9,10 @@ import org.springframework.web.bind.annotation.*
 class PropertyController(
     private val propertyService: PropertyService
 ) {
+    @PostMapping("with-params")
+    fun save(@RequestBody formalParametersDto: FormalParametersDto): PropertyWithFormalParameterDto =
+        propertyService.save(formalParametersDto = formalParametersDto)
+
     @PostMapping
     fun save(@RequestBody propertyDto: PropertyDto): PropertyDto =
         propertyService.save(propertyDto = propertyDto)
