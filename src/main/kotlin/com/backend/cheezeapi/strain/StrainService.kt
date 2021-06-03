@@ -9,6 +9,7 @@ import com.backend.cheezeapi.utils.PaginationHelper
 import com.querydsl.core.types.ExpressionUtils.*
 import com.querydsl.core.types.Predicate
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors
 
 
@@ -64,6 +65,7 @@ class StrainService(
         return strain
     }
 
+    @Transactional
     fun deleteById(strainId: Long) {
         factParameterService.deleteByStrainId(strainId)
         strainRepository.deleteById(strainId)
